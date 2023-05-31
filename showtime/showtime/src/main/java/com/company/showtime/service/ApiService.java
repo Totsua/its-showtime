@@ -5,7 +5,7 @@ import com.company.showtime.model.Film;
 
 import java.util.List;
 
-public interface ApiServiceInterface {
+public interface ApiService {
     List<Film> filmsNowShowing(String jsonResponseBody);
     List<Cinema> nearbyCinemas(String jsonResponseBody);
     List<Film> cinemaShowTimes(String jsonResponseBody);

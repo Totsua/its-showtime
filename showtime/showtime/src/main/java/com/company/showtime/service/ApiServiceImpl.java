@@ -1,6 +1,6 @@
 package com.company.showtime.service;
 
-import com.company.showtime.dao.ApiDAOImpl;
+import com.company.showtime.dao.ApiDAO;
 import com.company.showtime.model.Cinema;
 import com.company.showtime.model.Film;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ApiServiceImpl implements ApiServiceInterface {
+public class ApiServiceImpl implements ApiService {
 
+    // Create instance of the ApiDAO
     @Autowired
-    ApiDAOImpl apiDAO;
-
+    ApiDAO apiDAO;
+    public ApiServiceImpl(ApiDAO apiDAO) {this.apiDAO = apiDAO;}
 
     // Method to get a list of all the films currently being shown
     @Override
