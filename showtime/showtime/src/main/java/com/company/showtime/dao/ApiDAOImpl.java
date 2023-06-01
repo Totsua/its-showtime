@@ -12,14 +12,14 @@ import java.util.List;
 @Repository
 public class ApiDAOImpl implements ApiDAO{
     @Override
-    public List<Cinema> getNearbyCinemas(String JSONResponse, String method) {
+    public List<Cinema> getCinemaList(String JSONResponse, String method) {
         // Call the cinemaWrapper to unmarhsall the info
         List<Cinema> cinemas = new ArrayList<>();
         if(method.equalsIgnoreCase("cinemasNearby")) {
             cinemas = CinemaWrapper.cinemaWrapper(JSONResponse,"cinemasNearby");
         }
-        else if(method.equalsIgnoreCase("closetShowing")) {
-            cinemas = CinemaWrapper.cinemaWrapper(JSONResponse,"closetShowing");
+        else if(method.equalsIgnoreCase("closestShowing")) {
+            cinemas = CinemaWrapper.cinemaWrapper(JSONResponse,"closestShowing");
         }
         // Return the list
         return cinemas;
@@ -34,8 +34,8 @@ public class ApiDAOImpl implements ApiDAO{
         if(method.equalsIgnoreCase("filmsNowShowing")) {
             allFilms = FilmWrapper.filmWrapper(jsonResponse, "filmsNowShowing");
         }
-        else if(method.equalsIgnoreCase("getCinemaShowTimes")){
-            allFilms = FilmWrapper.filmWrapper(jsonResponse,"getCinemaShowtimes");
+        else if(method.equalsIgnoreCase("cinemaShowTimes")){
+            allFilms = FilmWrapper.filmWrapper(jsonResponse,"cinemaShowTimes");
         }
 
         return allFilms;

@@ -28,7 +28,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<Cinema> nearbyCinemas(String jsonResponseBody) {
         // Call the DAO to unmarshall the response body for the desired info
-        List<Cinema> nearbyCinemas = apiDAO.getNearbyCinemas(jsonResponseBody, "cinemasNearby");
+        List<Cinema> nearbyCinemas = apiDAO.getCinemaList(jsonResponseBody, "cinemasNearby");
         // Return the list
         return nearbyCinemas;
     }
@@ -44,7 +44,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<Cinema> closestShowing(String jsonResponseBody) {
         // Call the DAO to unmarhsall the response body for the desired info
-        List<Cinema> closestShowing = apiDAO.getNearbyCinemas(jsonResponseBody, "closetShowing");
+        List<Cinema> closestShowing = apiDAO.getCinemaList(jsonResponseBody, "closestShowing");
         // Return the list
         return closestShowing;
     }

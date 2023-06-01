@@ -41,7 +41,7 @@ public class CinemaWrapper {
                     // Add the Cinema to the List
                     cinemas.add(cinema);
                 }
-                else if (method.equalsIgnoreCase("closetShowing")){
+                else if (method.equalsIgnoreCase("closestShowing")){
                     // set the date and time
                     String date = cinemaNode.get("date").asText();
                     String time = cinemaNode.get("time").asText();

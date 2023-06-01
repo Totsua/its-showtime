@@ -1,13 +1,23 @@
 package com.company.showtime.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class Cinema {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cinemaName;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private int cinemaId;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cinemaAddress;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cinemaCity;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cinemaPostcode;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private int cinemaDistance;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String filmDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String filmTime;
 
     // Constructors

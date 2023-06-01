@@ -1,12 +1,20 @@
 package com.company.showtime.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 public class Film {
+    // @JsonInclude(JsonInclude.Include.NON_NULL) - Won't display them if they are null
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private int filmID;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String filmName;
-    private String filmSynopsis;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String filmAgeRating;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String filmSynopsis;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> showtimes;
 
     // Constructors
@@ -68,22 +76,20 @@ public class Film {
     }
 
 
-    public String toString(boolean includesSynopsis) {
-        if (includesSynopsis) {
-            return "Film{" +
-                    "filmID=" + filmID +
-                    ", filmName='" + filmName + '\'' +
-                    ", filmAgeRating='" + filmAgeRating + '\'' +
-                    ", showtimes=" + showtimes +
-                    '}';
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Film{" +
+                "filmID=" + filmID +
+                ", filmName='" + filmName + '\'' +
+                ", filmAgeRating='" + filmAgeRating + '\'');
+        if (filmSynopsis !=null){
+            builder.append(", filmSynopsis= " +filmSynopsis+ '\'' +"}");
         }
-        else {
-            return "Film{" +
-                    "filmID=" + filmID +
-                    ", filmName='" + filmName + '\'' +
-                    ", filmSynopsis='" + filmSynopsis + '\'' +
-                    ", filmAgeRating='" + filmAgeRating + '\'' +
-                    '}';
+        if (showtimes!=null){
+            builder.append(", showtimes=" + showtimes + '}');
         }
+        return builder.toString();
     }
 }

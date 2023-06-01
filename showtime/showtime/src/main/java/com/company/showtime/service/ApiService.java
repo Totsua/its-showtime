@@ -10,4 +10,5 @@ public interface ApiService {
     List<Cinema> nearbyCinemas(String jsonResponseBody);
     List<Film> cinemaShowTimes(String jsonResponseBody);
     List<Cinema> closestShowing(String jsonResponseBody);
+    //List<Film> noNearbyFilms(String statusCode);
 }
