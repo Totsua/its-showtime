@@ -6,6 +6,8 @@ import com.company.showtime.model.Cinema;
 import com.company.showtime.service.ApiServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.ui.Model;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
@@ -36,14 +38,6 @@ public class ApiControllerTests {
         int id = 0123;
         String apiResponse = apiController.ApiCaller(method,id);
         assertEquals("204",apiResponse );
-    }
-
-    // Test to see if API gives back the correct dummy info - includes servicelayer,dao and wrapper
-    @Test
-    @DisplayName("Give Me Local Cinemas")
-    public void findLocalCinemas(){
-        List<Cinema> TheseCinemas = apiController.getCinemasNearby();
-        assertEquals(8, TheseCinemas.size());
     }
 
 }

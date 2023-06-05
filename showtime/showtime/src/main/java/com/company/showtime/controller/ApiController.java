@@ -4,6 +4,8 @@ import com.company.showtime.model.Cinema;
 import com.company.showtime.model.Film;
 import com.company.showtime.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@RestController
+@Controller
 public class ApiController {
 
     // Create instance of the ApiService
@@ -28,6 +30,16 @@ public class ApiController {
     ApiService apiService;
     public ApiController(ApiService apiService){this.apiService = apiService;}
 
+    @GetMapping("cinemas")
+    public String getCinemasNearby(Model model){
+        // Contact api to get a String JSON response body
+        String responseBody = ApiCaller("cinemasNearby",0);
+        // Call the service layer to deal with the response body
+        List<Cinema> nearbyCinemas = apiService.nearbyCinemas(responseBody);
+        model.addAttribute("cinemas", nearbyCinemas);
+        // Return the Model to the html page "cinemas"
+        return "cinemas";
+    }
     // Method to get list of films currently showing
     @GetMapping("/filmsNowShowing")
     // Method to get all films currently being shown
@@ -40,16 +52,6 @@ public class ApiController {
         return currentShownFilms;
     }
 
-    // Method to get list of nearby cinemas
-    @GetMapping("/allNearbyCinemas")
-    public List<Cinema> getCinemasNearby(){
-        // Contact api to get a String JSON reponse body
-        String responseBody = ApiCaller("cinemasNearby",0);
-        // Call the service layer to deal with the response body
-        List<Cinema> nearbyCinemas = apiService.nearbyCinemas(responseBody);
-        // Return the List
-        return nearbyCinemas;
-    }
 
     // Method to get list of showtimes for a specific cinema
     @GetMapping("/cinemaShowTimes{id}")
@@ -78,7 +80,6 @@ public class ApiController {
         // Instantiate a string for the response body, the api endpoint and todays date
         String returnedJsonString = null;
         String apiEndpoint =  "https://api-gate2.movieglu.com/" +method+ "/?n=10";
-        String date = LocalDate.now().toString();
 
         // Need to create a datetime in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z' - for the API
         LocalDateTime now = LocalDateTime.now();
@@ -87,35 +88,35 @@ public class ApiController {
 
         // Change the endpoint depending on what method is being used
         if (method.equalsIgnoreCase("cinemaShowTimes")){
+            String date = LocalDate.now().toString();
             apiEndpoint = "https://api-gate2.movieglu.com/cinemaShowTimes/?cinema_id=" +id+ "&date=" + date;
         }
          else if(method.equalsIgnoreCase("closestShowing")){
             apiEndpoint = apiEndpoint.concat("&film_id="+id);
         }
 
+         // Instantiate a HTTP Client
         HttpClient client = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_1_1)
-                .connectTimeout(Duration.ofSeconds(10))
                 .build();
 
         // Create the HTTP request using headers of the api and values to connect
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiEndpoint))
                 .header("api-version", "v200")
-                .header("Authorization", "Basic SFFOVTpLcDlWdjA2T3dNTXk=")
+                .header("Authorization", "Basic SFFOVV9YWDpnVlB2YmwyTU5uRWg=")
                 // 	Basic SFFOVTpLcDlWdjA2T3dNTXk= SFFOVV9YWDpnVlB2YmwyTU5uRWg=
                 .header("client", "HQNU")
-                .header("x-api-key", "m3b1FPChyh88PhVS1eCyV2GImMzNkwaN4meYVa0b")
+                .header("x-api-key", "kqumzp9Mle41eZ8cpLMfK6AGOVs8Kgaj9LtHpyh6")
                 // m3b1FPChyh88PhVS1eCyV2GImMzNkwaN4meYVa0b kqumzp9Mle41eZ8cpLMfK6AGOVs8Kgaj9LtHpyh6
                 //
-                // The device datetime must be today's date and will be taken from 8am
+                // The device datetime must be today's date
                 // The api only allows connections from the date it's being called
                 .header("device-datetime", isoDateTime)
-                .header("territory", "UK")
+                .header("territory", "XX")
                 // "geolocation" could be obtained via google maps api
                 // It is in the format latitude, longitude
                 // Currently only using London coordinates
-                .header("geolocation", "51.50;-0.13")
+                .header("geolocation", "-22.0;14.0")
                 // 51.50;0.12 -22.0;14.0
                 .GET()
                 .build();
@@ -143,7 +144,7 @@ public class ApiController {
 
             System.out.println("Status Code: " + statusCode);
             //System.out.println("Headers: " + headers);
-           // System.out.println("Response Body: " + responseBody);
+            //System.out.println("Response Body: " + responseBody);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
