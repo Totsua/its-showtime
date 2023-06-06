@@ -30,7 +30,13 @@
     <div class="col text-center m-3">
       <table class="table table-striped">
         <thead>
+        <div>
+          <h3>Closest Showing</h3>
+          <h3>For Film ID:<span th:text="${param.filmId}"></span> </h3>
+        </div>
         <tr>
+          <th>Date</th>
+          <th>Time</th>
           <th>ID</th>
           <th>Cinema Name</th>
           <th>Address</th>
@@ -41,9 +47,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cinema : ${cinemas}">
+        <tr th:each="cinema : ${closestShowing}">
+          <td th:text="${cinema.date}"> Date </td>
+          <td th:text="${cinema.time}"> Time </td>
           <td th:text="${cinema.cinemaId}">Cinema ID</td>
-          <td th:text="${cinema.cinemaName}">Cinema Name</td>
+          <td th:text="${cinema.cinemaName}">Name</td>
           <td th:text="${cinema.cinemaAddress}">Address</td>
           <td th:text="${cinema.cinemaCity}">City</td>
           <td th:text="${cinema.cinemaPostcode}">Postcode</td>

@@ -3,12 +3,12 @@ package com.company.showtime.controller;
 import com.company.showtime.model.Cinema;
 import com.company.showtime.model.Film;
 import com.company.showtime.service.ApiService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.net.URI;
@@ -16,7 +16,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,52 +32,63 @@ public class ApiController {
     @GetMapping("cinemas")
     public String getCinemasNearby(Model model){
         // Contact api to get a String JSON response body
-        String responseBody = ApiCaller("cinemasNearby",0);
+        String[] responseBody = ApiCaller("cinemasNearby",0);
         // Call the service layer to deal with the response body
         List<Cinema> nearbyCinemas = apiService.nearbyCinemas(responseBody);
+        // Add the List to the Model
         model.addAttribute("cinemas", nearbyCinemas);
         // Return the Model to the html page "cinemas"
         return "cinemas";
     }
     // Method to get list of films currently showing
-    @GetMapping("/filmsNowShowing")
+    @GetMapping("filmsNowShowing")
     // Method to get all films currently being shown
-    public List<Film> getFilmsNowShowing() {
+    public String getFilmsNowShowing(Model model) {
         // Contact the api to get a String response body
-        String responseBody = ApiCaller("filmsNowShowing",0);
+        String[] responseBody = ApiCaller("filmsNowShowing",0);
         // Call the service layer to deal with the response body
-        List<Film> currentShownFilms = apiService.filmsNowShowing(responseBody);
-        // Return the List
-        return currentShownFilms;
+        List<Film> currentShownFilms = apiService.filmsNowShowing(responseBody[0]);
+        // Add the List to the Model
+        model.addAttribute("filmsNowShowing",currentShownFilms);
+        // Return the Model to the html page "filmsNowShowing"
+        return "filmsNowShowing";
     }
 
 
     // Method to get list of showtimes for a specific cinema
-    @GetMapping("/cinemaShowTimes{id}")
-    public List<Film> cinemaShowTimes(@RequestParam int cinemaId){
+    @GetMapping("/cinemaShowTimes")
+    public String cinemaShowTimes(HttpServletRequest request, Model model){
+        // Take in the parameter from the request
+        int cinemaId = Integer.parseInt(request.getParameter("cinemaId"));
         // Contact api to get a String JSON response body
-        String responseBody = ApiCaller("cinemaShowTimes", cinemaId);
+        String[] responseBody = ApiCaller("cinemaShowTimes", cinemaId);
         // Call the service layer to deal with the response body
-        List<Film> cinemaShowTimes = apiService.cinemaShowTimes(responseBody);
-        // Return the List
-        return cinemaShowTimes;
+        List<Film> cinemaShowTimes = apiService.cinemaShowTimes(responseBody[0]);
+        // Add the List to the Model
+        model.addAttribute("cinemaShowTimes", cinemaShowTimes);
+        // Return the Model to the cinemaShowTimes page
+        return "cinemaShowTimes";
     }
 
     // Method to get list of closest viewings of a specific film
-    @GetMapping("/closestShowing{id}")
-    public List<Cinema> closestShowing(@RequestParam int filmId){
+    @GetMapping("/closestShowing")
+    public String closestShowing(HttpServletRequest request, Model model){
+        // Take in the parameter from the request
+        int filmId = Integer.parseInt(request.getParameter("filmId"));
         // Contact api to get a String JSON response body
-        String responseBody = ApiCaller("closestShowing", filmId);
+        String[] responseBody = ApiCaller("closestShowing", filmId);
         // Call the service layer to deal with the response body
-        List<Cinema> closestShowing = apiService.closestShowing(responseBody);
-        // Return the List
-        return closestShowing;
+        List<Cinema> closestShowing = apiService.closestShowing(responseBody[0]);
+        // Add the List to the Model
+        model.addAttribute("closestShowing", closestShowing);
+        // Return the Model to the "closestShowing" page
+        return "closestShowing";
     }
 
     // Method to contact api
-    public String ApiCaller(String method, int id){
+    public String[] ApiCaller(String method, int id){
         // Instantiate a string for the response body, the api endpoint and todays date
-        String returnedJsonString = null;
+        String[] returnedJsonString = null;
         String apiEndpoint =  "https://api-gate2.movieglu.com/" +method+ "/?n=10";
 
         // Need to create a datetime in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z' - for the API
@@ -132,13 +142,11 @@ public class ApiController {
             // String of the response
             String responseBody = response.body();
             // Assign response body string to variable outside of scope
-            returnedJsonString = responseBody;
+            returnedJsonString = new String[]{responseBody, String.valueOf(statusCode)};
 
 
             //TESTING - Service Layer NEEDS TO BE MODIFIED
-            if(statusCode!= 200){
-                returnedJsonString = String.valueOf(statusCode);
-            }
+
 
 
 

@@ -16,11 +16,13 @@ public class Cinema {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private int cinemaDistance;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String filmDate;
+    private String date;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String filmTime;
+    private String time;
 
     // Constructors
+    public Cinema(String cinemaName) {this.cinemaName = cinemaName;}
+
     public Cinema(String cinemaName, int cinemaId, String cinemaAddress, String cinemaCity,
                   String cinemaPostcode, int cinemaDistance) {
         this.cinemaName = cinemaName;
@@ -32,15 +34,15 @@ public class Cinema {
     }
 
     public Cinema(String cinemaName, int cinemaId, String cinemaAddress, String cinemaCity,
-                  String cinemaPostcode, int cinemaDistance, String filmDate, String filmTime){
+                  String cinemaPostcode, int cinemaDistance, String date, String time){
         this.cinemaName = cinemaName;
         this.cinemaId = cinemaId;
         this.cinemaAddress = cinemaAddress;
         this.cinemaCity = cinemaCity;
         this.cinemaPostcode = cinemaPostcode;
         this.cinemaDistance = cinemaDistance;
-        this.filmDate = filmDate;
-        this.filmTime = filmTime;
+        this.date = date;
+        this.time = time;
     }
 
 
@@ -96,20 +98,20 @@ public class Cinema {
         this.cinemaDistance = cinemaDistance;
     }
 
-    public String getFilmDate() {
-        return filmDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setFilmDate(String filmDate) {
-        this.filmDate = filmDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getFilmTime() {
-        return filmTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setFilmTime(String filmTime) {
-        this.filmTime = filmTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override

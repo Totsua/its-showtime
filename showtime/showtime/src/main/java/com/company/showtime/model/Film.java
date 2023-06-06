@@ -7,7 +7,7 @@ import java.util.List;
 public class Film {
     // @JsonInclude(JsonInclude.Include.NON_NULL) - Won't display them if they are null
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private int filmID;
+    private int filmId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String filmName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,15 +18,15 @@ public class Film {
     private List<String> showtimes;
 
     // Constructors
-    public Film(int filmID, String filmName, String filmAgeRating, List<String> showtimes){
-        this.filmID = filmID;
+    public Film(int filmId, String filmName, String filmAgeRating, List<String> showtimes){
+        this.filmId = filmId;
         this.filmName = filmName;
         this.showtimes = showtimes;
         this.filmAgeRating = filmAgeRating;
     }
 
-    public Film(int filmID, String filmName, String filmSynopsis, String filmAgeRating) {
-        this.filmID = filmID;
+    public Film(int filmId, String filmName, String filmSynopsis, String filmAgeRating) {
+        this.filmId = filmId;
         this.filmName = filmName;
         this.filmSynopsis = filmSynopsis;
         this.filmAgeRating = filmAgeRating;
@@ -35,12 +35,12 @@ public class Film {
     // Getters, Setters and toString
 
 
-    public int getFilmID() {
-        return filmID;
+    public int getFilmId() {
+        return filmId;
     }
 
-    public void setFilmID(int filmID) {
-        this.filmID = filmID;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 
     public String getFilmName() {
@@ -81,7 +81,7 @@ public class Film {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Film{" +
-                "filmID=" + filmID +
+                "filmID=" + filmId +
                 ", filmName='" + filmName + '\'' +
                 ", filmAgeRating='" + filmAgeRating + '\'');
         if (filmSynopsis !=null){

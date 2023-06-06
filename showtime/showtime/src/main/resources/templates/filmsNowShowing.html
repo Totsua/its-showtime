@@ -32,23 +32,19 @@
         <thead>
         <tr>
           <th>ID</th>
-          <th>Cinema Name</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>Postcode</th>
-          <th>Distance(in KM)</th>
-          <th>Cinema Showtimes</th>
+          <th>Film Name</th>
+          <th>Age Rating</th>
+          <th>Synopsis</th>
+          <th>Closest Showing</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cinema : ${cinemas}">
-          <td th:text="${cinema.cinemaId}">Cinema ID</td>
-          <td th:text="${cinema.cinemaName}">Cinema Name</td>
-          <td th:text="${cinema.cinemaAddress}">Address</td>
-          <td th:text="${cinema.cinemaCity}">City</td>
-          <td th:text="${cinema.cinemaPostcode}">Postcode</td>
-          <td th:text="${cinema.cinemaDistance}">Distance</td>
-          <td><a href="#" th:href="@{/cinemaShowTimes(cinemaId=${cinema.cinemaId})}">Showtimes</a></td>
+        <tr th:each="film : ${filmsNowShowing}">
+          <td th:text="${film.filmId}">Film ID</td>
+          <td th:text="${film.filmName}">Film Name</td>
+          <td th:text="${film.filmAgeRating}">Age Rating</td>
+          <td th:text="${film.filmSynopsis}">Synopsis</td>
+          <td><a href="#" th:href="@{/closestShowing(filmId=${film.filmId})}">Closet Showing</a></td>
         </tr>
         </tbody>
       </table>

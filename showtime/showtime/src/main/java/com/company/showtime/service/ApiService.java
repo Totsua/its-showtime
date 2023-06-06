@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ApiService {
     List<Film> filmsNowShowing(String jsonResponseBody);
-    List<Cinema> nearbyCinemas(String jsonResponseBody);
+    List<Cinema> nearbyCinemas(String[] jsonResponseBody);
     List<Film> cinemaShowTimes(String jsonResponseBody);
     List<Cinema> closestShowing(String jsonResponseBody);
     //List<Film> noNearbyFilms(String statusCode);
