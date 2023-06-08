@@ -36,10 +36,8 @@ public class UserDaoDBTests {
 
     /**
      * Testing the saveUser method
-     *************"THIS TEST CAN ONLY BE RAN ONCE"*************
-     *   Otherwise it will throw a duplicate key exception
-     *      which will return a user with username
-     *             "USERNAME IS TAKEN"
+     * The test will add the user to the database,
+     * verify it saved, then delete it afterward.
      */
     @Test
     @DisplayName("Saving A New User Test")
@@ -48,5 +46,8 @@ public class UserDaoDBTests {
         userDao.saveUser(testUser);
         User testUserBack = userDao.getUserByUsername("TESTUSER");
         assertEquals("TESTUSER", testUserBack.getUsername());
+        String sqlQuery = "DELETE FROM user WHERE username = ?;";
+        // Connect to database with Query and parameters
+        jdbcTemplate.update(sqlQuery, testUser.getUsername());
     }
 }
