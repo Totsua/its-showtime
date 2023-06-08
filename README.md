@@ -1,26 +1,26 @@
 # Its-showtime
-- This is a work in progress. 
-- Dependencies
-Java - JDK 17
+ This is a work in progress. 
+# Dependencies
+- Java - JDK 17
 
-Spring Boot 3
+- Spring Boot 3
 
-Spring Boot Thymeleaf
+- Spring Boot Thymeleaf
 
-Spring Boot Web
+- Spring Boot Web
 
-Spring Boot DevTools
+- Spring Boot DevTools
 
-MySQL 
+- MySQL 
 
-Spring JDBC
+- Spring JDBC
 
-Spring Test
+- Spring Test
 
-Spring Validation
+- Spring Validation
 
-Spring Security
+- Spring Security
 
-- Frontend Technology
-HTML
-CSS
+# Frontend Technology
+- HTML
+- CSS
