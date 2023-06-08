@@ -54,7 +54,8 @@ public class SpringSecurity {
                         form -> form
                                 .loginPage("/login") // Setting the login page
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/redirect", true) // Trying to send the user back to the page before login
+                                .defaultSuccessUrl("/index")
+                                //.defaultSuccessUrl("/redirect", true) // Trying to send the user back to the page before login
                                 .permitAll()
                 ).logout(
                         logout -> logout

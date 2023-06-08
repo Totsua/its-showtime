@@ -20,7 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * This method checks the database and loads the user via the username given.
+     * This method checks the database and loads the user via the username given when
+     * a person is trying to log in.
      * If the password/username is incorrect it will throw an exception.
      * @param username - inputted username being checked
      * @return the user with the given authorities (None in this case).
