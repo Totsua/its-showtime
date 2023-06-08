@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-public class ApiDAOTests {
+public class ApiDAOImplTests {
     private ApiDAOImpl apiDAO;
 
-    public ApiDAOTests() {
+    public ApiDAOImplTests() {
         apiDAO = new ApiDAOImpl();
         this.apiDAO = apiDAO;
     }
