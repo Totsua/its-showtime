@@ -1,4 +1,4 @@
-package com.company.showtime.model;
+package com.company.showtime.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -17,6 +17,11 @@ public class Film {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> showtimes;
 
+    /**
+     * 2 Constructors:
+     * 1) "cinemaShowTimes" constructor - Includes showtimes but not filmSynopsis
+     * 2) "filmsNowShowing" constructor - Includes filmSynopsis but not showtimes
+     */
     // Constructors
     public Film(int filmId, String filmName, String filmAgeRating, List<String> showtimes){
         this.filmId = filmId;

@@ -20,7 +20,7 @@
   </div>
   <div class="row m-4 border border-dark">
     <div class="col text-center m-3">
-      <a href="/cinemas" class="btn btn-outline-primary btn-lg">Cinemas</a>
+      <a href="/cinemas" class="btn btn-outline-primary btn-lg">Cinemas Nearby</a>
     </div>
     <div class="col text-center m-3">
       <a href="/filmsNowShowing" class="btn btn-outline-primary btn-lg">Films Now Showing</a>
@@ -44,7 +44,7 @@
         </thead>
         <tbody>
         <tr th:each="film : ${cinemaShowTimes}">
-          <td th:text="${film.filmID}">Film ID</td>
+          <td th:text="${film.filmId}">Film ID</td>
           <td th:text="${film.filmName}">Film Name</td>
           <td th:text="${film.filmAgeRating}">Age Rating</td>
           <td th:text="${film.showtimes}">Showtimes</td>

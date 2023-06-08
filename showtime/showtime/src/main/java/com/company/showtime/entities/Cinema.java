@@ -1,8 +1,9 @@
-package com.company.showtime.model;
+package com.company.showtime.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class Cinema {
+    // @JsonInclude(JsonInclude.Include.NON_NULL) - Won't display them if they are null
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cinemaName;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,9 +21,16 @@ public class Cinema {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String time;
 
+
     // Constructors
     public Cinema(String cinemaName) {this.cinemaName = cinemaName;}
 
+    /**
+     * 3 Constructors:
+     * 1) TESTING constructor with only "cinemaName" when there is no content from the API (code 204)
+     * 2) "nearbyCinemas" constructor - Doesn't include date and time param.
+     * 3) "closestShowing" constructor - Includes all params including date and time.
+     */
     public Cinema(String cinemaName, int cinemaId, String cinemaAddress, String cinemaCity,
                   String cinemaPostcode, int cinemaDistance) {
         this.cinemaName = cinemaName;

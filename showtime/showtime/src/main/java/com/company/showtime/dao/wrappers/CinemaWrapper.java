@@ -1,6 +1,6 @@
 package com.company.showtime.dao.wrappers;
 
-import com.company.showtime.model.Cinema;
+import com.company.showtime.entities.Cinema;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CinemaWrapper {
+    /**
+     * The wrapper that parses the JSON response body and creates a list of Cinema Objects based on
+     * what method was used to obtain the data.
+     * "closestShowing" has more information than "cinemasNearby".
+     * @param jsonResponseBody - the JSON response body obtained from the API.
+     * @param method - The API method called to obtain the API data.
+     * @return a list of Cinema Objects from the JSON response body.
+     */
     public static List<Cinema> cinemaWrapper(String jsonResponseBody, String method) {
         // Instantiate List Object of cinemas
         List<Cinema> cinemas = new ArrayList<>();

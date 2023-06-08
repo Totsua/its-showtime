@@ -1,4 +1,18 @@
 package com.company.showtime.service;
 
-public class UserServiceImpl {
+import com.company.showtime.entities.User;
+
+/**
+ *          --UNDER CONSTRUCTION--
+ */
+public class UserServiceImpl implements UserService{
+    @Override
+    public void saveUser(User user) {
+
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return null;
+    }
 }

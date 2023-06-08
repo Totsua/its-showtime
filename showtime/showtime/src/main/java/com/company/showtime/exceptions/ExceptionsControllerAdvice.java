@@ -5,6 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ *          -- CURRENTLY UNDER CONSTRUCTION --
+ *          This is supposed to be an exception
+ *              handler for the frontend
+ */
+
 @ControllerAdvice
 public class ExceptionsControllerAdvice {
 

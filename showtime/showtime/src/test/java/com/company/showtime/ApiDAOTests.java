@@ -1,16 +1,19 @@
 package com.company.showtime;
 
 import com.company.showtime.dao.ApiDAOImpl;
-import com.company.showtime.model.Film;
+import com.company.showtime.entities.Film;
+import com.company.showtime.exceptions.CustomException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
 public class ApiDAOTests {
     private ApiDAOImpl apiDAO;
 
-    public ApiDAOTests(){
+    public ApiDAOTests() {
         apiDAO = new ApiDAOImpl();
         this.apiDAO = apiDAO;
     }
@@ -18,10 +21,31 @@ public class ApiDAOTests {
     // Test to see if the DAO can correctly get the list of Film objects correctly from a JSON
     @Test
     @DisplayName("Correct Film List Returned From Json Test")
-    public void correctFilmListTest(){
+    public void correctFilmListTest() throws CustomException {
         List<Film> films = apiDAO.getFilmList(CORRECTFILMSJSON, "filmsNowShowing");
-        assertEquals(3,films.size());
+        assertEquals(3, films.size());
     }
+
+
+    // Learnt from baeldung.com - Junit Assert Exceptions
+    // Test to see if correct error is thrown in filmWrapper
+    @Test
+    @DisplayName("Correct Error From Wrong Json Test")
+    public void CorrectErrorFilmListTest(){
+        Exception exception = assertThrows(CustomException.class, () -> {
+            apiDAO.getFilmList(INCORRECTFILMJSON,"filmsNowShowing");
+        });
+        String expectedMessage = "-_-Could Not Parse Film JSON Data";
+        String actualMessage = exception.getMessage();
+        System.out.println(actualMessage);
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
+    private String INCORRECTFILMJSON = "{OneFilm\": [{\"film_id\": 7772,\"imdb_id\": 82971,\"imdb_title_id\":" +
+            " \"tt0082971\",\"film_name\": \"Raiders of the Lost Ark\",\"age_rating\": [{\"rating\": \"PG \",}]," +
+            "\"synopsis_long\": \"Indiana Jones doing Indiana Jones things\"],}";
+
 
 
 
@@ -171,8 +195,8 @@ public class ApiDAOTests {
             "        \"request_method\": \"GET\",\n" +
             "        \"version\": \"HQNU_XXv200\",\n" +
             "        \"territory\": \"XX\",\n" +
-            "        \"device_datetime_sent\": \"2023-06-01T11:04:27.846Z\",\n" +
-            "        \"device_datetime_used\": \"2023-06-01 11:04:27\"\n" +
+            "        \"device_datetime_sent\": \"2023-06-07T17:22:55.770Z\",\n" +
+            "        \"device_datetime_used\": \"2023-06-07 17:22:55\"\n" +
             "    }\n" +
             "}";
 }

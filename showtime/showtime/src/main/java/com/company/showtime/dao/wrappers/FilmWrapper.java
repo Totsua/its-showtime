@@ -1,6 +1,7 @@
 package com.company.showtime.dao.wrappers;
 
-import com.company.showtime.model.Film;
+import com.company.showtime.entities.Film;
+import com.company.showtime.exceptions.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,8 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilmWrapper {
-
-    public static List<Film> filmWrapper(String jsonResponseBody, String method) {
+    /**
+     * The wrapper that parses the JSON response body and creates a list of Film Objects based on
+     * what method was used to obtain the data.
+     * "filmsNowShowing" has less information than "cinemaShowTimes".
+     * @param jsonResponseBody - the JSON response body obtained from the API.
+     * @param method - The API method called to obtain the API data.
+     * @throws - CustomException if there is a JsonProcessingException -- This is still in the TESTING phase.
+     * @return a list of Film Objects from the JSON response body.
+     */
+    public static List<Film> filmWrapper(String jsonResponseBody, String method) throws CustomException {
         List<Film> films = new ArrayList<>();
 
         // Instantiate a ObjectMapper object
@@ -68,7 +77,7 @@ public class FilmWrapper {
 
         } catch (
                 JsonProcessingException e) {
-            System.out.println(e.getMessage());
+            throw new CustomException("-_-Could Not Parse Film JSON Data: " + e.getMessage(),e);
         }
         // Return the films list
         return films;

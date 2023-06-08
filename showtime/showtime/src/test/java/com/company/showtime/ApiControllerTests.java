@@ -2,15 +2,11 @@ package com.company.showtime;
 
 import com.company.showtime.controller.ApiController;
 import com.company.showtime.dao.ApiDAOImpl;
-import com.company.showtime.model.Cinema;
 import com.company.showtime.service.ApiServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.ui.Model;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
 
 public class ApiControllerTests {
 
@@ -36,8 +32,8 @@ public class ApiControllerTests {
     public void apiConnectionTest(){
         String method = "cinemaShowTimes";
         int id = 0123;
-        String apiResponse = apiController.ApiCaller(method,id);
-        assertEquals("204",apiResponse );
+        String[] apiResponse = apiController.ApiCaller(method,id);
+        assertEquals("204",apiResponse[1]);
     }
 
 }

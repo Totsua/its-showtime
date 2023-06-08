@@ -1,14 +1,14 @@
 package com.company.showtime.controller;
 
-import com.company.showtime.model.Cinema;
-import com.company.showtime.model.Film;
+import com.company.showtime.entities.Cinema;
+import com.company.showtime.entities.Film;
+import com.company.showtime.exceptions.CustomException;
 import com.company.showtime.service.ApiService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,6 +29,15 @@ public class ApiController {
     ApiService apiService;
     public ApiController(ApiService apiService){this.apiService = apiService;}
 
+
+    /**
+     * The method that directs the user to the "cinemas" page with the information it gets from the
+     * API. Here we give the API the method "nearbyCinemas", it returns a String array with the response
+     * body [0] and server code [1].
+     * Everytime the page is entered, the API is called, be cautious of this.
+     * @param model - used to store data to send to the frontend.
+     * @return the information gathered to the "cinemas" page.
+     */
     @GetMapping("cinemas")
     public String getCinemasNearby(Model model){
         // Contact api to get a String JSON response body
@@ -40,10 +49,17 @@ public class ApiController {
         // Return the Model to the html page "cinemas"
         return "cinemas";
     }
-    // Method to get list of films currently showing
+
+    /**
+     * The method that directs the user to the "filmsNowShowing" page with the information it gets from the
+     * API. Here we give the API the method "filmsNowShowing", it returns a String array with the response
+     * body [0] and server code [1].
+     * Everytime the page is entered, the API is called, be cautious of this.
+     * @param model - used to store data to send to the frontend.
+     * @return the information gathered to the "filmsNowShowing" page.
+     */
     @GetMapping("filmsNowShowing")
-    // Method to get all films currently being shown
-    public String getFilmsNowShowing(Model model) {
+    public String getFilmsNowShowing(Model model) throws CustomException {
         // Contact the api to get a String response body
         String[] responseBody = ApiCaller("filmsNowShowing",0);
         // Call the service layer to deal with the response body
@@ -55,9 +71,17 @@ public class ApiController {
     }
 
 
-    // Method to get list of showtimes for a specific cinema
+    /**
+     * The method that directs the user to the "cinemaShowTimes" page with the information it gets from the
+     * API. Here we give the API the method "cinemaShowTimes" with the chosen cinema Id from the frontend,
+     * it returns a String array with the response body [0] and server code [1].
+     * Everytime the page is entered, the API is called, be cautious of this.
+     * @param request - taking in the "cinemaId" from the frontend.
+     * @param model - used to store data to send to the frontend.
+     * @return the information gathered to the "cinemaShowTimes" page.
+     */
     @GetMapping("/cinemaShowTimes")
-    public String cinemaShowTimes(HttpServletRequest request, Model model){
+    public String cinemaShowTimes(HttpServletRequest request, Model model) throws CustomException {
         // Take in the parameter from the request
         int cinemaId = Integer.parseInt(request.getParameter("cinemaId"));
         // Contact api to get a String JSON response body
@@ -70,7 +94,15 @@ public class ApiController {
         return "cinemaShowTimes";
     }
 
-    // Method to get list of closest viewings of a specific film
+    /**
+     * The method that directs the user to the "closestShowing" page with the information it gets from the
+     * API. Here we give the API the method "closestShowing" with the chosen film Id from the frontend,
+     * it returns a String array with the response body [0] and server code [1].
+     * Everytime the page is entered, the API is called, be cautious of this.
+     * @param request - taking in the "filmId" from the frontend.
+     * @param model - used to store data to send to the frontend.
+     * @return the information gathered to the "closestShowing" page.
+     */
     @GetMapping("/closestShowing")
     public String closestShowing(HttpServletRequest request, Model model){
         // Take in the parameter from the request
@@ -85,7 +117,25 @@ public class ApiController {
         return "closestShowing";
     }
 
-    // Method to contact api
+
+    /**
+     * The Heart of the operation, The API Caller.
+     * It should be in the service layer but for the time being it's here.
+     *
+     * The method constructs an endpoint with the given parameters, connects to the API
+     * and returns the response body[0] and server code[1] as a String array.
+     *
+     * At this moment in time the API key connects to dummy information in the API.
+     * The dummy information is 10000 requests per month whilst the live information is 75 per month.
+     *
+     * The API Headers are fixed so that the user cannot interfere with them. The only change in the
+     * header is the device time which is instantiated on every request via LocalDateTime,
+     * formatted and placed into the header.
+     *
+     * @param method - the method that is being called in the API
+     * @param id - the id given for a chosen film or cinema, is given as 0 if there is none.
+     * @return the response body[0] and server code[1] as a String array.
+     */
     public String[] ApiCaller(String method, int id){
         // Instantiate a string for the response body, the api endpoint and todays date
         String[] returnedJsonString = null;
@@ -118,14 +168,13 @@ public class ApiController {
                 .header("client", "HQNU")
                 .header("x-api-key", "kqumzp9Mle41eZ8cpLMfK6AGOVs8Kgaj9LtHpyh6")
                 // m3b1FPChyh88PhVS1eCyV2GImMzNkwaN4meYVa0b kqumzp9Mle41eZ8cpLMfK6AGOVs8Kgaj9LtHpyh6
-                //
                 // The device datetime must be today's date
                 // The api only allows connections from the date it's being called
                 .header("device-datetime", isoDateTime)
                 .header("territory", "XX")
                 // "geolocation" could be obtained via google maps api
                 // It is in the format latitude, longitude
-                // Currently only using London coordinates
+                // Currently only using Central London coordinates
                 .header("geolocation", "-22.0;14.0")
                 // 51.50;0.12 -22.0;14.0
                 .GET()
@@ -143,11 +192,6 @@ public class ApiController {
             String responseBody = response.body();
             // Assign response body string to variable outside of scope
             returnedJsonString = new String[]{responseBody, String.valueOf(statusCode)};
-
-
-            //TESTING - Service Layer NEEDS TO BE MODIFIED
-
-
 
 
             System.out.println("Status Code: " + statusCode);
