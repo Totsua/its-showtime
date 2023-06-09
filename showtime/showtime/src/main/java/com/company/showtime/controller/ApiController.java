@@ -34,9 +34,11 @@ public class ApiController {
      * The method that directs the user to the "cinemas" page with the information it gets from the
      * API. Here we give the API the method "nearbyCinemas", it returns a String array with the response
      * body [0] and server code [1].
+     *
      * Everytime the page is entered, the API is called, be cautious of this.
-     * @param model - used to store data to send to the frontend.
-     * @return the information gathered to the "cinemas" page.
+     *
+     * @param model - used to send data to the frontend
+     * @return to the "cinemas" page.
      */
     @GetMapping("cinemas")
     public String getCinemasNearby(Model model){
@@ -46,17 +48,20 @@ public class ApiController {
         List<Cinema> nearbyCinemas = apiService.nearbyCinemas(responseBody);
         // Add the List to the Model
         model.addAttribute("cinemas", nearbyCinemas);
-        // Return the Model to the html page "cinemas"
+        // Return to the html page "cinemas"
         return "cinemas";
     }
 
     /**
      * The method that directs the user to the "filmsNowShowing" page with the information it gets from the
-     * API. Here we give the API the method "filmsNowShowing", it returns a String array with the response
+     * API.
+     * Here we give the API the method "filmsNowShowing", it returns a String array with the response
      * body [0] and server code [1].
+     *
      * Everytime the page is entered, the API is called, be cautious of this.
-     * @param model - used to store data to send to the frontend.
-     * @return the information gathered to the "filmsNowShowing" page.
+     *
+     * @param model - used to send data to the frontend.
+     * @return to the "filmsNowShowing" page.
      */
     @GetMapping("filmsNowShowing")
     public String getFilmsNowShowing(Model model) throws CustomException {
@@ -66,19 +71,22 @@ public class ApiController {
         List<Film> currentShownFilms = apiService.filmsNowShowing(responseBody[0]);
         // Add the List to the Model
         model.addAttribute("filmsNowShowing",currentShownFilms);
-        // Return the Model to the html page "filmsNowShowing"
+        // Return to the html page "filmsNowShowing"
         return "filmsNowShowing";
     }
 
 
     /**
      * The method that directs the user to the "cinemaShowTimes" page with the information it gets from the
-     * API. Here we give the API the method "cinemaShowTimes" with the chosen cinema Id from the frontend,
+     * API.
+     * Here we give the API the method "cinemaShowTimes" with the chosen cinema Id from the frontend,
      * it returns a String array with the response body [0] and server code [1].
+     *
      * Everytime the page is entered, the API is called, be cautious of this.
+     *
      * @param request - taking in the "cinemaId" from the frontend.
-     * @param model - used to store data to send to the frontend.
-     * @return the information gathered to the "cinemaShowTimes" page.
+     * @param model - used to send data to the frontend.
+     * @return to the "cinemaShowTimes" page.
      */
     @GetMapping("/cinemaShowTimes")
     public String cinemaShowTimes(HttpServletRequest request, Model model) throws CustomException {
@@ -90,18 +98,21 @@ public class ApiController {
         List<Film> cinemaShowTimes = apiService.cinemaShowTimes(responseBody[0]);
         // Add the List to the Model
         model.addAttribute("cinemaShowTimes", cinemaShowTimes);
-        // Return the Model to the cinemaShowTimes page
+        // Return to the cinemaShowTimes page
         return "cinemaShowTimes";
     }
 
     /**
      * The method that directs the user to the "closestShowing" page with the information it gets from the
-     * API. Here we give the API the method "closestShowing" with the chosen film Id from the frontend,
+     * API.
+     * Here we give the API the method "closestShowing" with the chosen film Id from the frontend,
      * it returns a String array with the response body [0] and server code [1].
+     *
      * Everytime the page is entered, the API is called, be cautious of this.
+     *
      * @param request - taking in the "filmId" from the frontend.
-     * @param model - used to store data to send to the frontend.
-     * @return the information gathered to the "closestShowing" page.
+     * @param model - used to send data to the frontend.
+     * @return to the "closestShowing" page.
      */
     @GetMapping("/closestShowing")
     public String closestShowing(HttpServletRequest request, Model model){
@@ -113,7 +124,7 @@ public class ApiController {
         List<Cinema> closestShowing = apiService.closestShowing(responseBody[0]);
         // Add the List to the Model
         model.addAttribute("closestShowing", closestShowing);
-        // Return the Model to the "closestShowing" page
+        // Return to the "closestShowing" page
         return "closestShowing";
     }
 

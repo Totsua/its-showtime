@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService{
     /**
      * Method to encode the users password and save them to
      * the database.
+     * Maybe a User DTO should be used for security.
      * @param user - user being saved into database.
      */
     @Override
