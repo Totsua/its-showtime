@@ -42,12 +42,9 @@ public class UserDAODB implements UserDAO{
     /**
      * Method to save a user to the database.
      * Usernames must be unique.
-     * The UserID is generated in the table and set to the User Object after.
-     * (Potentially should use a constructor that doesn't take ID).
+     * The UserID is generated in the table.
      * @param user - The user to save into the database
-     * @return the User,
-     * If the username is taken, @return the user with username "USERNAME IS TAKEN",
-     * Any database access problems - @return null.
+     * @return the User or null if database problems
      */
     @Override
     public User saveUser(User user) {
@@ -57,14 +54,9 @@ public class UserDAODB implements UserDAO{
                 user.getUsername(),
                 user.getPassword());
         final String USERID = "SELECT userID FROM user WHERE username = ?";
-        int newId = jdbc.queryForObject(USERID, new UserMapper(), user.getUsername(),Integer.class).getId();
-        user.setId(newId);
         return user;
-        } catch(DuplicateKeyException e){
-            user.setUsername("USERNAME IS TAKEN");
-            return user;
         }
-        catch (DataAccessException e){
+        catch (DataAccessException| NullPointerException  e){
             return null;
         }
     }
