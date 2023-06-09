@@ -24,3 +24,7 @@
 # Frontend Technology
 - HTML
 - CSS
+
+# Current Work
+- There is only one user currently username: totsua, password: totsua
+- There is login and registration however no functionality whilst logged in.
