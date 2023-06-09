@@ -23,6 +23,8 @@ public class Film {
      * 2) "filmsNowShowing" constructor - Includes filmSynopsis but not showtimes
      */
     // Constructors
+    public Film(String filmName){this.filmName=filmName;}
+
     public Film(int filmId, String filmName, String filmAgeRating, List<String> showtimes){
         this.filmId = filmId;
         this.filmName = filmName;

@@ -25,13 +25,24 @@ public class ApiServiceImpl implements ApiService {
     /**
      * Method to call the DAO to parse JSON response body and return a List of Film Objects depending on the
      * called method.
+     * TESTING: If the server code isn't 200 from the api- it'll return the List saying
+     * that there are none.
      * @param jsonResponseBody - the JSON response body and server code
      * @return the List of Film Objects
      */
     @Override
-    public List<Film> filmsNowShowing(String jsonResponseBody) throws CustomException {
+    public List<Film> filmsNowShowing(String[] jsonResponseBody) throws CustomException {
+        List<Film> allFilmsNowShowing = new ArrayList<>();
         // Call the DAO to unmarshall the response body for the desired info
-        List<Film> allFilmsNowShowing = apiDAO.getFilmList(jsonResponseBody, "filmsNowShowing");
+        String responseBody = jsonResponseBody[0];
+        String statusCode = jsonResponseBody[1];
+        if (statusCode.equals("200")){
+            allFilmsNowShowing = apiDAO.getFilmList(responseBody, "filmsNowShowing");
+        }
+        else{
+            Film nothing = new Film(statusCode+ ": Looks like there are none.");
+            allFilmsNowShowing.add(nothing);
+        }
         // Return the list
         return allFilmsNowShowing;
     }

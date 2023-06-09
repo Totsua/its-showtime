@@ -68,7 +68,7 @@ public class ApiController {
         // Contact the api to get a String response body
         String[] responseBody = ApiCaller("filmsNowShowing",0);
         // Call the service layer to deal with the response body
-        List<Film> currentShownFilms = apiService.filmsNowShowing(responseBody[0]);
+        List<Film> currentShownFilms = apiService.filmsNowShowing(responseBody);
         // Add the List to the Model
         model.addAttribute("filmsNowShowing",currentShownFilms);
         // Return to the html page "filmsNowShowing"
