@@ -32,3 +32,4 @@
 -- To see it, simply break a API header in the apiCaller method (APIController)
 -- Easiest way is removing "Basic" from .header("Authorization")
 -- Or type in a random number into the cinema/film ID in the closestShowing or cinemaShowTimes url
+-- The DAO tests must be done with the MYSQL server online. 
