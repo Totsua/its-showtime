@@ -25,17 +25,18 @@ public class ApiServiceImpl implements ApiService {
     /**
      * Method to call the DAO to parse JSON response body and return a List of Film Objects depending on the
      * called method.
-     * TESTING: If the server code isn't 200 from the api- it'll return the List saying
+     * TESTING: If the status code isn't 200 from the api- it'll return the List saying
      * that there are none.
      * @param jsonResponseBody - the JSON response body and server code
      * @return the List of Film Objects
      */
     @Override
     public List<Film> filmsNowShowing(String[] jsonResponseBody) throws CustomException {
+       // Define/Instantiate variables
         List<Film> allFilmsNowShowing = new ArrayList<>();
-        // Call the DAO to unmarshall the response body for the desired info
         String responseBody = jsonResponseBody[0];
         String statusCode = jsonResponseBody[1];
+        // Call the DAO to unmarshall the response body for the desired info
         if (statusCode.equals("200")){
             allFilmsNowShowing = apiDAO.getFilmList(responseBody, "filmsNowShowing");
         }
@@ -50,17 +51,18 @@ public class ApiServiceImpl implements ApiService {
     /**
      * Method to call the DAO to parse JSON response body and return a List of Cinema Objects depending on the
      * called method.
-     * TESTING: If the server code isn't 200 from the api- it'll return the List saying
+     * TESTING: If the status code isn't 200 from the api- it'll return the List saying
      * that there are none.
      * @param jsonResponseBody - the JSON response body and server code
      * @return the List of Cinema Objects
      */
     @Override
     public List<Cinema> nearbyCinemas(String[] jsonResponseBody) {
+        // Define/Instantiate variables
         List<Cinema> nearbyCinemas = new ArrayList<>();
-        // Call the DAO to unmarshall the response body for the desired info
         String responseBody = jsonResponseBody[0];
         String statusCode = jsonResponseBody[1];
+        // Call the DAO to unmarshall the response body for the desired info
         if (statusCode.equals("200")){
             nearbyCinemas = apiDAO.getCinemaList(responseBody, "cinemasNearby");
         }
@@ -79,9 +81,19 @@ public class ApiServiceImpl implements ApiService {
      * @return the List of Film Objects
      */
     @Override
-    public List<Film> cinemaShowTimes(String jsonResponseBody) throws CustomException {
+    public List<Film> cinemaShowTimes(String[] jsonResponseBody) throws CustomException {
+        // Define/Instantiate variables
+        List<Film> cinemaShowTimes = new ArrayList<>();
+        String responseBody = jsonResponseBody[0];
+        String statusCode = jsonResponseBody[1];
         // Call the DAO to unmarhsall the response body for the desired info
-        List<Film> cinemaShowTimes = apiDAO.getFilmList(jsonResponseBody, "cinemaShowTimes");
+        if(statusCode.equals("200")){
+            cinemaShowTimes = apiDAO.getFilmList(responseBody, "cinemaShowTimes");
+        }
+        else{
+            Film nothing = new Film(statusCode+": Looks like there are none.");
+            cinemaShowTimes.add(nothing);
+        }
         // Return the list
         return cinemaShowTimes;
     }

@@ -33,7 +33,7 @@ public class ApiController {
     /**
      * The method that directs the user to the "cinemas" page with the information it gets from the
      * API. Here we give the API the method "nearbyCinemas", it returns a String array with the response
-     * body [0] and server code [1].
+     * body [0] and status code [1].
      *
      * Everytime the page is entered, the API is called, be cautious of this.
      *
@@ -56,7 +56,7 @@ public class ApiController {
      * The method that directs the user to the "filmsNowShowing" page with the information it gets from the
      * API.
      * Here we give the API the method "filmsNowShowing", it returns a String array with the response
-     * body [0] and server code [1].
+     * body [0] and status code [1].
      *
      * Everytime the page is entered, the API is called, be cautious of this.
      *
@@ -80,7 +80,7 @@ public class ApiController {
      * The method that directs the user to the "cinemaShowTimes" page with the information it gets from the
      * API.
      * Here we give the API the method "cinemaShowTimes" with the chosen cinema Id from the frontend,
-     * it returns a String array with the response body [0] and server code [1].
+     * it returns a String array with the response body [0] and status code [1].
      *
      * Everytime the page is entered, the API is called, be cautious of this.
      *
@@ -95,7 +95,7 @@ public class ApiController {
         // Contact api to get a String JSON response body
         String[] responseBody = ApiCaller("cinemaShowTimes", cinemaId);
         // Call the service layer to deal with the response body
-        List<Film> cinemaShowTimes = apiService.cinemaShowTimes(responseBody[0]);
+        List<Film> cinemaShowTimes = apiService.cinemaShowTimes(responseBody);
         // Add the List to the Model
         model.addAttribute("cinemaShowTimes", cinemaShowTimes);
         // Return to the cinemaShowTimes page
@@ -106,7 +106,7 @@ public class ApiController {
      * The method that directs the user to the "closestShowing" page with the information it gets from the
      * API.
      * Here we give the API the method "closestShowing" with the chosen film Id from the frontend,
-     * it returns a String array with the response body [0] and server code [1].
+     * it returns a String array with the response body [0] and status code [1].
      *
      * Everytime the page is entered, the API is called, be cautious of this.
      *
@@ -145,7 +145,7 @@ public class ApiController {
      *
      * @param method - the method that is being called in the API
      * @param id - the id given for a chosen film or cinema, is given as 0 if there is none.
-     * @return the response body[0] and server code[1] as a String array.
+     * @return the response body[0] and status code[1] as a String array.
      */
     public String[] ApiCaller(String method, int id){
         // Instantiate a string for the response body, the api endpoint and todays date
@@ -174,7 +174,7 @@ public class ApiController {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiEndpoint))
                 .header("api-version", "v200")
-                .header("Authorization", "Basic SFFOVV9YWDpnVlB2YmwyTU5uRWg=")
+                .header("Authorization", " SFFOVV9YWDpnVlB2YmwyTU5uRWg=")
                 // 	Basic SFFOVTpLcDlWdjA2T3dNTXk= SFFOVV9YWDpnVlB2YmwyTU5uRWg=
                 .header("client", "HQNU")
                 .header("x-api-key", "kqumzp9Mle41eZ8cpLMfK6AGOVs8Kgaj9LtHpyh6")
