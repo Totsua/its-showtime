@@ -10,6 +10,5 @@ public interface ApiService {
     List<Film> filmsNowShowing(String[] jsonResponseBody) throws CustomException;
     List<Cinema> nearbyCinemas(String[] jsonResponseBody);
     List<Film> cinemaShowTimes(String[] jsonResponseBody) throws CustomException;
-    List<Cinema> closestShowing(String jsonResponseBody);
-    //List<Film> noNearbyFilms(String statusCode);
+    List<Cinema> closestShowing(String[] jsonResponseBody);
 }

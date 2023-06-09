@@ -121,7 +121,7 @@ public class ApiController {
         // Contact api to get a String JSON response body
         String[] responseBody = ApiCaller("closestShowing", filmId);
         // Call the service layer to deal with the response body
-        List<Cinema> closestShowing = apiService.closestShowing(responseBody[0]);
+        List<Cinema> closestShowing = apiService.closestShowing(responseBody);
         // Add the List to the Model
         model.addAttribute("closestShowing", closestShowing);
         // Return to the "closestShowing" page
@@ -174,7 +174,7 @@ public class ApiController {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiEndpoint))
                 .header("api-version", "v200")
-                .header("Authorization", " SFFOVV9YWDpnVlB2YmwyTU5uRWg=")
+                .header("Authorization", "Basic SFFOVV9YWDpnVlB2YmwyTU5uRWg=")
                 // 	Basic SFFOVTpLcDlWdjA2T3dNTXk= SFFOVV9YWDpnVlB2YmwyTU5uRWg=
                 .header("client", "HQNU")
                 .header("x-api-key", "kqumzp9Mle41eZ8cpLMfK6AGOVs8Kgaj9LtHpyh6")
