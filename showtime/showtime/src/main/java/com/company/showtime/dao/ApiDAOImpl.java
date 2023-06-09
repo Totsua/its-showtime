@@ -7,7 +7,6 @@ import com.company.showtime.entities.Film;
 import com.company.showtime.exceptions.CustomException;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,14 +21,10 @@ public class ApiDAOImpl implements ApiDAO{
      */
     @Override
     public List<Cinema> getCinemaList(String jsonResponse, String method) {
-        // Call the cinemaWrapper to unmarhsall the info
-        List<Cinema> cinemas = new ArrayList<>();
-        if(method.equalsIgnoreCase("cinemasNearby")) {
-            cinemas = CinemaWrapper.cinemaWrapper(jsonResponse,"cinemasNearby");
-        }
-        else if(method.equalsIgnoreCase("closestShowing")) {
-            cinemas = CinemaWrapper.cinemaWrapper(jsonResponse,"closestShowing");
-        }
+        // Instantiate a List object
+        List<Cinema> cinemas;
+        // Call the cinemaWrapper to unmarshall the info
+        cinemas = CinemaWrapper.cinemaWrapper(jsonResponse,method);
         // Return the list
         return cinemas;
     }
@@ -43,16 +38,9 @@ public class ApiDAOImpl implements ApiDAO{
     @Override
     public List<Film> getFilmList(String jsonResponse, String method) throws CustomException {
         // Instantiate a List object
-        List<Film> allFilms = new ArrayList<>();
-
-        // Call the filmWrapper to unmarhshall the info depending on what method is used
-        if(method.equalsIgnoreCase("filmsNowShowing")) {
-            allFilms = FilmWrapper.filmWrapper(jsonResponse, "filmsNowShowing");
-        }
-        else if(method.equalsIgnoreCase("cinemaShowTimes")){
-            allFilms = FilmWrapper.filmWrapper(jsonResponse,"cinemaShowTimes");
-        }
-
+        List<Film> allFilms;
+        // Call the filmWrapper to unmarshall the info depending on what method is used
+        allFilms = FilmWrapper.filmWrapper(jsonResponse,method);
         return allFilms;
     }
 
