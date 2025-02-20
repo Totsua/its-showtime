@@ -27,7 +27,6 @@ public class ApiController {
     // Create instance of the ApiService
     @Autowired
     ApiService apiService;
-    public ApiController(ApiService apiService){this.apiService = apiService;}
 
 
     /**
