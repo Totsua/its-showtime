@@ -1,4 +1,4 @@
-package com.company.showtime.dao.wrappers;
+package com.company.showtime.service.wrappers;
 
 import com.company.showtime.entities.Cinema;
 import com.fasterxml.jackson.core.JsonProcessingException;

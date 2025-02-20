@@ -4,6 +4,8 @@ import com.company.showtime.dao.ApiDAO;
 import com.company.showtime.entities.Cinema;
 import com.company.showtime.entities.Film;
 import com.company.showtime.exceptions.CustomException;
+import com.company.showtime.service.wrappers.CinemaWrapper;
+import com.company.showtime.service.wrappers.FilmWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +37,7 @@ public class ApiServiceImpl implements ApiService {
         // Check the status code to see if the DAO is called to
         // unmarhsall the response body for the desired info
         if (statusCode.equals("200")){
-            allFilmsNowShowing = apiDAO.getFilmList(responseBody, "filmsNowShowing");
+            allFilmsNowShowing = FilmWrapper.filmWrapper(responseBody,"filmsNowShowing");
         }
         else{
             Film nothing = new Film(statusCode+ ": Looks like there are none.");
@@ -62,7 +64,7 @@ public class ApiServiceImpl implements ApiService {
         // Check the status code to see if the DAO is called to
         // unmarhsall the response body for the desired info
         if (statusCode.equals("200")){
-            nearbyCinemas = apiDAO.getCinemaList(responseBody, "cinemasNearby");
+            nearbyCinemas = CinemaWrapper.cinemaWrapper(responseBody,"cinemasNearby");
         }
         else{
             Cinema nothing = new Cinema(statusCode+ ": Looks like there are none.");
@@ -89,7 +91,7 @@ public class ApiServiceImpl implements ApiService {
         // Check the status code to see if the DAO is called to
         // unmarhsall the response body for the desired info
         if(statusCode.equals("200")){
-            cinemaShowTimes = apiDAO.getFilmList(responseBody, "cinemaShowTimes");
+            cinemaShowTimes = FilmWrapper.filmWrapper(responseBody,"cinemaShowTimes");
         }
         else{
             Film nothing = new Film(statusCode+": Looks like there are none.");
@@ -116,7 +118,7 @@ public class ApiServiceImpl implements ApiService {
         // Check the status code to see if the DAO is called to
         // unmarhsall the response body for the desired info
         if(statusCode.equals("200")){
-            closestShowingList = apiDAO.getCinemaList(responseBody, "closestShowing");
+            closestShowingList = CinemaWrapper.cinemaWrapper(responseBody,"closestShowing");
         }
         else{
             Cinema nothing = new Cinema(statusCode+": Looks like there are none.");
