@@ -29,13 +29,17 @@ public class MovieApiConfig {
     }
 
     public String getAuthHeader(){
-        return properties.getProperty("api.auth");
+        return properties.getProperty("api.authorization");
     }
     public String getClientHeader(){
         return properties.getProperty("api.client");
     }
     public String getApiKey(){
-        return properties.getProperty("api.key");
+        return properties.getProperty("api.xkey");
+    }
+
+    public String getTerritory(){
+        return properties.getProperty("api.territory");
     }
 
 
