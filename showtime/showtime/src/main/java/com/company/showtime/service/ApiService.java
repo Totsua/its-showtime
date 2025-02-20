@@ -11,4 +11,5 @@ public interface ApiService {
     List<Cinema> nearbyCinemas(String[] jsonResponseBody);
     List<Film> cinemaShowTimes(String[] jsonResponseBody) throws CustomException;
     List<Cinema> closestShowing(String[] jsonResponseBody);
+    String[] ApiCaller(String method, int id);
 }
