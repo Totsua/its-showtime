@@ -1,4 +1,8 @@
 # Its-showtime
+# About the project
+A full-stack web application that displays real-time movie showtimes and allows users to create accounts to save their favorite cinemas. Built with Spring Boot for the backend, integrating the MovieGlu API for live data, and MySQL for user data storage.
+
+The backend was built using **Java** and **Spring Boot** and the frontend uses HTML, CSS, and Thymeleaf.
 # Dependencies
 - Java - JDK 17
 
