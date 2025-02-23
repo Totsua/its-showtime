@@ -1,7 +1,7 @@
 package com.company.showtime.dao;
 
-import com.company.showtime.dao.wrappers.CinemaWrapper;
-import com.company.showtime.dao.wrappers.FilmWrapper;
+import com.company.showtime.service.wrappers.CinemaWrapper;
+import com.company.showtime.service.wrappers.FilmWrapper;
 import com.company.showtime.entities.Cinema;
 import com.company.showtime.entities.Film;
 import com.company.showtime.exceptions.CustomException;
