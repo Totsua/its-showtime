@@ -18,12 +18,9 @@ public class ApiControllerTests {
     // These tests are done under the condition that the Api is connected to the dummy network
 
     public ApiControllerTests(){
-        ApiDAOImpl apiDAO = new ApiDAOImpl();
-        this.apiDAO = apiDAO;
-        ApiServiceImpl apiService = new ApiServiceImpl(apiDAO);
-        this.apiService = apiService;
-        ApiController apiController = new ApiController(apiService);
-        this.apiController = apiController;
+        this.apiDAO = new ApiDAOImpl();
+        this.apiService = new ApiServiceImpl();
+        this.apiController = new ApiController();
     }
 
     // Test to see if API connects to HTTP client correctly
@@ -32,7 +29,7 @@ public class ApiControllerTests {
     public void apiConnectionTest(){
         String method = "cinemaShowTimes";
         int id = 0123;
-        String[] apiResponse = apiController.ApiCaller(method,id);
+        String[] apiResponse = apiController.apiService.ApiCaller(method,id);
         assertEquals("204",apiResponse[1]);
     }
 
