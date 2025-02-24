@@ -1,5 +1,6 @@
 package com.company.showtime.service;
 
+import com.company.showtime.config.MovieApiConfig;
 import com.company.showtime.dao.ApiDAO;
 import com.company.showtime.entities.Cinema;
 import com.company.showtime.entities.Film;
@@ -184,12 +185,12 @@ public class ApiServiceImpl implements ApiService {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiEndpoint))
                 .header("api-version", "v200")
-                .header("Authorization", "")
-                .header("client", "")
-                .header("x-api-key", "")
+                .header("Authorization", MovieApiConfig.getAuthHeader())
+                .header("client", MovieApiConfig.getClientHeader())
+                .header("x-api-key", MovieApiConfig.getApiKey())
                 // The api only allows connections from the date it's being called
                 .header("device-datetime", isoDateTime)
-                .header("territory", "XX")
+                .header("territory", MovieApiConfig.getTerritory())
                 //  In the format latitude, longitude
                 .header("geolocation", "-22.0;14.0")
                 .GET()
