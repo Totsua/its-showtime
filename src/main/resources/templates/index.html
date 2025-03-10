@@ -1,15 +1,16 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <title>It's Showtime</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <!-- https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css
-  sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO
-  -->
+  <!--  Bootstrap CSS
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+         crossorigin="anonymous">
+ -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -25,19 +26,36 @@
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-        <li class=" nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <!-- If user is NOT logged in -->
+        <li class="nav-item" sec:authorize="isAnonymous()">
+          <a class="nav-link active" th:href="@{/register}">Register</a>
         </li>
-        <li class=" nav-item">
-          <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+        <li class="nav-item" sec:authorize="isAnonymous()">
+          <a class="nav-link active" th:href="@{/login}">Login</a>
         </li>
+
+        <!-- If user IS logged in -->
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <span class="nav-link">Hi, <span sec:authentication="name"></span>!</span>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link active" href="/logout">Logout</a>
+        </li>
+
       </ul>
     </div>
   </div>
 </nav>
-<br />
+<!-- Main Body of Page -->
+<div class="row m-4">
+  <div class="col text-center border border-dark">
+    <h1><a class="text-dark">Welcome To It's Showtime!</a></h1>
+  </div>
+</div>
   <div class="row m-4 border border-dark">
     <div class="col text-center m-3">
       <a href="cinemas" class="btn btn-outline-primary btn-lg">Cinemas Nearby</a>
@@ -46,7 +64,6 @@
       <a href="filmsNowShowing" class="btn btn-outline-primary btn-lg">Films Now Showing</a>
     </div>
   </div>
-</div>
 <!-- End main body -->
 
 <!-- Optional JavaScript -->
