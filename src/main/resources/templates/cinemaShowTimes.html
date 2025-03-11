@@ -72,7 +72,6 @@
           <h3>For Cinema ID:<span th:text="${param.cinemaId}"></span> </h3>
         </div>
         <tr>
-          <th>ID</th>
           <th>Film Name</th>
           <th>Age Rating</th>
           <th>Showtimes</th>
@@ -80,7 +79,6 @@
         </thead>
         <tbody>
         <tr th:each="film : ${cinemaShowTimes}">
-          <td th:text="${film.filmId}">Film ID</td>
           <td th:text="${film.filmName}">Film Name</td>
           <td th:text="${film.filmAgeRating}">Age Rating</td>
           <td th:text="${film.showtimes}">Showtimes</td>

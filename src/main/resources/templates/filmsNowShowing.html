@@ -66,7 +66,6 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>ID</th>
           <th>Film Name</th>
           <th>Age Rating</th>
           <th>Synopsis</th>
@@ -75,7 +74,6 @@
         </thead>
         <tbody>
         <tr th:each="film : ${filmsNowShowing}">
-          <td th:text="${film.filmId}">Film ID</td>
           <td th:text="${film.filmName}">Film Name</td>
           <td th:text="${film.filmAgeRating}">Age Rating</td>
           <td th:text="${film.filmSynopsis}">Synopsis</td>

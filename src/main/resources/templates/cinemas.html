@@ -71,7 +71,6 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>ID</th>
           <th>Cinema Name</th>
           <th>Address</th>
           <th>City</th>
@@ -82,7 +81,6 @@
         </thead>
         <tbody>
         <tr th:each="cinema : ${cinemas}">
-          <td th:text="${cinema.cinemaId}">Cinema ID</td>
           <td th:text="${cinema.cinemaName}">Cinema Name</td>
           <td th:text="${cinema.cinemaAddress}">Address</td>
           <td th:text="${cinema.cinemaCity}">City</td>

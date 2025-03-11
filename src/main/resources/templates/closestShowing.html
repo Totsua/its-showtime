@@ -73,7 +73,6 @@
         <tr>
           <th>Date</th>
           <th>Time</th>
-          <th>ID</th>
           <th>Cinema Name</th>
           <th>Address</th>
           <th>City</th>
@@ -86,7 +85,6 @@
         <tr th:each="cinema : ${closestShowing}">
           <td th:text="${cinema.date}"> Date </td>
           <td th:text="${cinema.time}"> Time </td>
-          <td th:text="${cinema.cinemaId}">Cinema ID</td>
           <td th:text="${cinema.cinemaName}">Name</td>
           <td th:text="${cinema.cinemaAddress}">Address</td>
           <td th:text="${cinema.cinemaCity}">City</td>
