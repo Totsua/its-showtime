@@ -35,7 +35,7 @@
           <a class="nav-link active" th:href="@{/register}">Register</a>
         </li>
         <li class="nav-item" sec:authorize="isAnonymous()">
-          <a class="nav-link active" th:href="@{/login}">Login</a>
+          <a class="nav-link active" th:href="@{/login}"  >Login</a>
         </li>
 
         <!-- If user IS logged in -->
@@ -51,15 +51,11 @@
   </div>
 </nav>
 <!-- Main Body of Page -->
-<div class="row m-4">
-  <div class="col text-center border border-dark">
-    <h1><a class="text-dark">Welcome To It's Showtime!</a></h1>
-  </div>
-</div>
   <div class="row m-4 border border-dark">
     <div class="col text-center m-3">
       <a href="cinemas" class="btn btn-outline-primary btn-lg">Cinemas Nearby</a>
     </div>
+    <h1 class="col text-center m-3"> <u>Welcome To It's Showtime!</u></h1>
     <div class="col text-center m-3">
       <a href="filmsNowShowing" class="btn btn-outline-primary btn-lg">Films Now Showing</a>
     </div>
