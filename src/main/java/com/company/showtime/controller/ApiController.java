@@ -82,6 +82,8 @@ public class ApiController {
     public String cinemaShowTimes(HttpServletRequest request, Model model) throws CustomException {
         // Take in the parameter from the request
         int cinemaId = Integer.parseInt(request.getParameter("cinemaId"));
+        String cinemaName = String.valueOf(request.getParameter("cinemaName"));
+        System.out.println(cinemaName);
         // Contact api to get a String JSON response body
         String[] responseBody = apiService.ApiCaller("cinemaShowTimes", cinemaId);
         // Call the service layer to deal with the response body
