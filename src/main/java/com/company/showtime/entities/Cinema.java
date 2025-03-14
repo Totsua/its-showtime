@@ -23,6 +23,7 @@ public class Cinema {
 
 
     // Constructors
+    public Cinema() {};
     public Cinema(String cinemaName) {this.cinemaName = cinemaName;}
 
     /**
