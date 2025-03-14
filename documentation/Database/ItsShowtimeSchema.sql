@@ -11,16 +11,21 @@ CREATE TABLE User (
 
 -- Table Structure for Cinema
 CREATE TABLE Cinema (
-  cinemaId INT PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT,
+  cinemaId INT NOT NULL,
   name VARCHAR(255) NOT NULL,
-  address VARCHAR(255) NOT NULL
+  address VARCHAR(255) NOT NULL,
+  postcode VARCHAR(45) NOT NULL,
+  PRIMARY KEY(`id`),
+  UNIQUE KEY `cinemaId` (`cinemaId`)
 );
 
 -- Table structure for UserCinema
 CREATE TABLE UserCinema (
-  username VARCHAR(255),
-  cinemaId INT,
-  PRIMARY KEY (username, cinemaId),
-  FOREIGN KEY (username) REFERENCES User(username) ON DELETE CASCADE,
-  FOREIGN KEY (cinemaId) REFERENCES Cinema(cinemaId) ON DELETE CASCADE
+  userID INT NOT NULL,
+  cinemaId INT NOT NULL,
+  PRIMARY KEY (userID, cinemaId),
+  KEY `cinemaId` (`cinemaId`)
+  CONSTRAINT `usercinema_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE,
+  CONSTRAINT `usercinema_ibfk_2` FOREIGN KEY (`cinemaId`) REFERENCES `cinema` (`cinemaId`) ON DELETE CASCADE
 )
