@@ -1,7 +1,11 @@
 package com.company.showtime.service;
 
 import com.company.showtime.dao.UserDAO;
+import com.company.showtime.entities.Cinema;
 import com.company.showtime.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,4 +46,26 @@ public class UserServiceImpl implements UserService{
     public User findUserByUsername(String username) {
         return userDAO.getUserByUsername(username);
     }
+
+    @Override
+    public void saveUserCinema(Cinema cinema) {
+        String username = getCurrentUserUsername();
+        userDAO.saveUserCinema(username,cinema);
+    }
+
+    private String getCurrentUserUsername(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null){
+
+            org.springframework.security.core.userdetails.User user =
+                    (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+
+            return user.getUsername();
+        }else{
+            return null;
+        }
+
+    }
+
 }
