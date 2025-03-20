@@ -21,16 +21,19 @@ public class AuthController {
 
 
     /**
-     * Method meant to redirect to the homepage.
-     * Doesn't seem to be working at the moment.
-     * "href:"/"" will suffice for now.
-     * @return
+     * Method to redirect to the homepage.
+     * @return "/home" redirect
      */
-    /*// handler method to handle home page request
-    @GetMapping("/index")
+    // handler method to handle home page request
+    @GetMapping("/")
+    public String redirectToHome(){
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
     public String home(){
         return "index";
-    }*/
+    }
 
     /**
      * GetMapping for url "/login" for the login page.
