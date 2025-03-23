@@ -32,10 +32,8 @@ public class ApiController {
      */
     @GetMapping("cinemas")
     public String getCinemasNearby(Model model){
-        // Contact api to get a String JSON response body
-        String[] responseBody = apiService.ApiCaller("cinemasNearby",0);
         // Call the service layer to deal with the response body
-        List<Cinema> nearbyCinemas = apiService.nearbyCinemas(responseBody);
+        List<Cinema> nearbyCinemas = apiService.nearbyCinemas();
         // Add the List to the Model
         model.addAttribute("cinemas", nearbyCinemas);
         // Return to the html page "cinemas"
@@ -55,10 +53,8 @@ public class ApiController {
      */
     @GetMapping("filmsNowShowing")
     public String getFilmsNowShowing(Model model) throws CustomException {
-        // Contact the api to get a String response body
-        String[] responseBody = apiService.ApiCaller("filmsNowShowing",0);
-        // Call the service layer to deal with the response body
-        List<Film> currentShownFilms = apiService.filmsNowShowing(responseBody);
+        // Call the service layer
+        List<Film> currentShownFilms = apiService.filmsNowShowing();
         // Add the List to the Model
         model.addAttribute("filmsNowShowing",currentShownFilms);
         // Return to the html page "filmsNowShowing"
@@ -80,14 +76,8 @@ public class ApiController {
      */
     @GetMapping("/cinemaShowTimes")
     public String cinemaShowTimes(HttpServletRequest request, Model model) throws CustomException {
-        // Take in the parameter from the request
-        int cinemaId = Integer.parseInt(request.getParameter("cinemaId"));
-        String cinemaName = String.valueOf(request.getParameter("cinemaName"));
-        System.out.println(cinemaName);
-        // Contact api to get a String JSON response body
-        String[] responseBody = apiService.ApiCaller("cinemaShowTimes", cinemaId);
         // Call the service layer to deal with the response body
-        List<Film> cinemaShowTimes = apiService.cinemaShowTimes(responseBody);
+        List<Film> cinemaShowTimes = apiService.cinemaShowTimes(request.getParameter("cinemaId"));
         // Add the List to the Model
         model.addAttribute("cinemaShowTimes", cinemaShowTimes);
         // Return to the cinemaShowTimes page
@@ -107,13 +97,9 @@ public class ApiController {
      * @return to the "closestShowing" page.
      */
     @GetMapping("/closestShowing")
-    public String closestShowing(HttpServletRequest request, Model model){
-        // Take in the parameter from the request
-        int filmId = Integer.parseInt(request.getParameter("filmId"));
-        // Contact api to get a String JSON response body
-        String[] responseBody = apiService.ApiCaller("closestShowing", filmId);
+    public String closestShowing(HttpServletRequest request, Model model) throws CustomException{
         // Call the service layer to deal with the response body
-        List<Cinema> closestShowing = apiService.closestShowing(responseBody);
+        List<Cinema> closestShowing = apiService.closestShowing(request.getParameter("filmId"));
         // Add the List to the Model
         model.addAttribute("closestShowing", closestShowing);
         // Return to the "closestShowing" page

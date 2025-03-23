@@ -35,11 +35,11 @@ public class ApiServiceImpl implements ApiService {
      * called method.
      * If the status code isn't 200 from the api- it'll return the List saying
      * that there are none.
-     * @param jsonResponseBody - the JSON response body and server code
      * @return the List of Film Objects
      */
     @Override
-    public List<Film> filmsNowShowing(String[] jsonResponseBody) throws CustomException {
+    public List<Film> filmsNowShowing() throws CustomException {
+        String[] jsonResponseBody = ApiCaller("filmsNowShowing", 0);
        // Define/Instantiate variables
         List<Film> allFilmsNowShowing = new ArrayList<>();
         String responseBody = jsonResponseBody[0];
@@ -62,11 +62,11 @@ public class ApiServiceImpl implements ApiService {
      * called method.
      * If the status code isn't 200 from the api- it'll return the List saying
      * that there are none.
-     * @param jsonResponseBody - the JSON response body and server code
      * @return the List of Cinema Objects
      */
     @Override
-    public List<Cinema> nearbyCinemas(String[] jsonResponseBody) {
+    public List<Cinema> nearbyCinemas() {
+        String[] jsonResponseBody = ApiCaller("nearbyCinemas", 0);
         // Define/Instantiate variables
         List<Cinema> nearbyCinemas = new ArrayList<>();
         String responseBody = jsonResponseBody[0];
@@ -89,11 +89,20 @@ public class ApiServiceImpl implements ApiService {
      * called method.
      * If the status code isn't 200 from the api- it'll return the List saying
      * that there are none.
-     * @param jsonResponseBody - the JSON response body and server code
+     * @param cinemaId ID of the cinema to be searched
      * @return the List of Film Objects
      */
     @Override
-    public List<Film> cinemaShowTimes(String[] jsonResponseBody) throws CustomException {
+    public List<Film> cinemaShowTimes(String cinemaId) throws CustomException {
+        Integer cinemaIntId;
+
+        try{
+            cinemaIntId = Integer.parseInt(cinemaId);
+        }catch (NumberFormatException e){
+            throw new CustomException("ID not valid");
+        }
+
+        String[] jsonResponseBody = ApiCaller("cinemaShowTimes",cinemaIntId);
         // Define/Instantiate variables
         List<Film> cinemaShowTimes = new ArrayList<>();
         String responseBody = jsonResponseBody[0];
@@ -116,11 +125,20 @@ public class ApiServiceImpl implements ApiService {
      * called method.
      * If the status code isn't 200 from the api- it'll return the List saying
      * that there are none.
-     * @param jsonResponseBody - the JSON response body and server code
+     * @param filmId ID of the film to be searched
      * @return the List of Cinema Objects
      */
     @Override
-    public List<Cinema> closestShowing(String[] jsonResponseBody) {
+    public List<Cinema> closestShowing(String filmId) throws CustomException {
+        Integer filmIntId;
+
+        try{
+            filmIntId = Integer.parseInt(filmId);
+        }catch (NumberFormatException e){
+            throw new CustomException("ID not valid");
+        }
+
+        String[] jsonResponseBody = ApiCaller("closestShowing",filmIntId);
         // Define/Instantiate variables
         List<Cinema> closestShowingList = new ArrayList<>();
         String responseBody = jsonResponseBody[0];
@@ -159,7 +177,7 @@ public class ApiServiceImpl implements ApiService {
      * @return the response body[0] and status code[1] as a String array.
      */
     public String[] ApiCaller(String method, int id){
-        // Instantiate a string for the response body, the api endpoint and todays date
+        // Instantiate a string for the response body, the api endpoint and today's date
         String[] returnedJsonString = null;
         String apiEndpoint =  "https://api-gate2.movieglu.com/" +method+ "/?n=10";
 

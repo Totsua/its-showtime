@@ -7,9 +7,9 @@ import com.company.showtime.exceptions.CustomException;
 import java.util.List;
 
 public interface ApiService {
-    List<Film> filmsNowShowing(String[] jsonResponseBody) throws CustomException;
-    List<Cinema> nearbyCinemas(String[] jsonResponseBody);
-    List<Film> cinemaShowTimes(String[] jsonResponseBody) throws CustomException;
-    List<Cinema> closestShowing(String[] jsonResponseBody);
+    List<Film> filmsNowShowing() throws CustomException;
+    List<Cinema> nearbyCinemas();
+    List<Film> cinemaShowTimes(String cinemaId) throws CustomException;
+    List<Cinema> closestShowing(String filmId) throws CustomException;
     String[] ApiCaller(String method, int id);
 }
