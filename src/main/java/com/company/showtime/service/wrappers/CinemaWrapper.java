@@ -71,4 +71,32 @@ public class CinemaWrapper {
         return cinemas;
 
     }
+
+    public static Cinema cinemaDetailsWrapper(String jsonResponseBody) throws CustomException{
+        ObjectMapper mapper = new ObjectMapper();
+        Cinema cinema;
+        try {
+            JsonNode cinemaNode = mapper.readTree(jsonResponseBody);
+
+            String cinemaName = cinemaNode.get("cinema_name").asText();
+            int cinema_id = cinemaNode.get("cinema_id").asInt();
+            String cinemaAddress1 = cinemaNode.get("address").asText();
+            String cinemaAddress2 = cinemaNode.get("address2").asText();
+            String cinemaAddress = cinemaAddress1 + " " + cinemaAddress2;
+            String city = cinemaNode.get("city").asText();
+            String county = cinemaNode.get("county").asText();
+            String postcode = cinemaNode.get("postcode").asText();
+            int distance = cinemaNode.get("distance").asInt();
+            cinema = new Cinema(cinemaName, cinema_id, cinemaAddress, city,postcode,distance);
+
+        }catch (JsonProcessingException e){
+            throw new CustomException("-_-Could Not Parse Cinema JSON Data: " + e.getMessage(),e);
+
+        }
+        return cinema;
+
+    }
+
+
+
 }

@@ -16,13 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
 
-    private PasswordEncoder passwordEncoder;
-    private UserDAO userDAO;
-
-    public UserServiceImpl(PasswordEncoder passwordEncoder, UserDAO userDAO){
-        this.passwordEncoder = passwordEncoder;
-        this.userDAO = userDAO;
-    }
+    @Autowired
+    ApiService apiService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    UserDAO userDAO;
 
     /**
      * Method to encode the users password and save them to
