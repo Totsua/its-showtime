@@ -10,6 +10,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 /**
  * The UserDAODB is still under construction
@@ -70,10 +72,10 @@ public class UserDAODB implements UserDAO{
         }
 
         try{
-            final String INSERT_USERCINEMA = "INSERT INTO User_Cinema (userID, cinemaId)" +
-                    "SELECT u.userID, c.cinemaId" +
-                    "FROM user u" +
-                    "JOIN Cinema c ON c.cinemaId = ?" +
+            final String INSERT_USERCINEMA = "INSERT INTO usercinema (userID, cinemaId) " +
+                    "SELECT u.userID, c.cinemaId " +
+                    "FROM user u " +
+                    "JOIN cinema c ON c.cinemaId = ? " +
                     "WHERE u.username = ?";
             jdbc.update(INSERT_USERCINEMA, cinema.getCinemaId(), username );
         }catch (DataAccessException e){
@@ -88,11 +90,13 @@ public class UserDAODB implements UserDAO{
     private boolean isCinemaInDB(Cinema cinema){
         final String SELECT_CINEMA = "SELECT * FROM cinema WHERE cinemaId = ?";
         try{
-            jdbc.query(SELECT_CINEMA, new CinemaMapper(),cinema.getCinemaId());
+            List<Cinema> cinema1 = jdbc.query(SELECT_CINEMA, new CinemaMapper(),cinema.getCinemaId());
+            if (cinema1.isEmpty()) {
+            throw new NullPointerException();
+            }
         }catch(DataAccessException|NullPointerException e){
             return false;
             }
-
         return true;
     }
 

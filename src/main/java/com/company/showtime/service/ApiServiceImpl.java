@@ -156,6 +156,30 @@ public class ApiServiceImpl implements ApiService {
         return closestShowingList;
     }
 
+    @Override
+    public Cinema getCinemaDetails(String cinemaId) throws CustomException {
+        Integer cinemaIntId;
+        try{
+            cinemaIntId = Integer.parseInt(cinemaId);
+        }catch(NumberFormatException e){
+            throw new CustomException("Invalid cinema ID");
+        }
+        String[] jsonResponseBody = ApiCaller("cinemaDetails",cinemaIntId);
+        String responseBody = jsonResponseBody[0];
+        String statusCode = jsonResponseBody[1];
+        // Check the status code to see if the DAO is called to
+        // unmarhsall the response body for the desired info
+        Cinema cinema;
+        if(statusCode.equals("200")){
+            cinema = CinemaWrapper.cinemaDetailsWrapper(responseBody);
+            return cinema;
+        }
+        else{
+            throw new CustomException("Api Error (" +statusCode+"), please try again" );
+        }
+
+
+    }
 
 
     /**
@@ -193,6 +217,8 @@ public class ApiServiceImpl implements ApiService {
         }
         else if(method.equalsIgnoreCase("closestShowing")){
             apiEndpoint = apiEndpoint.concat("&film_id="+id);
+        } else if (method.equalsIgnoreCase("cinemaDetails")) {
+            apiEndpoint = "https://api-gate2.movieglu.com/cinemaDetails" +"?cinema_id="+id;
         }
 
         // Instantiate a HTTP Client

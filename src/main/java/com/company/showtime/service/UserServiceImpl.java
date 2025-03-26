@@ -3,6 +3,7 @@ package com.company.showtime.service;
 import com.company.showtime.dao.UserDAO;
 import com.company.showtime.entities.Cinema;
 import com.company.showtime.entities.User;
+import com.company.showtime.exceptions.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,8 +48,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void saveUserCinema(Cinema cinema) {
+    public void saveUserCinema(String cinemaId) throws CustomException {
         String username = getCurrentUserUsername();
+        Cinema cinema = apiService.getCinemaDetails(cinemaId);
         userDAO.saveUserCinema(username,cinema);
     }
 

@@ -1,11 +1,11 @@
 package com.company.showtime.service;
 
-import com.company.showtime.entities.Cinema;
 import com.company.showtime.entities.User;
+import com.company.showtime.exceptions.CustomException;
 
 
 public interface UserService {
     void saveUser(User user);
     User findUserByUsername(String username);
-    void saveUserCinema(Cinema cinema);
+    void saveUserCinema(String id) throws CustomException;
 }
