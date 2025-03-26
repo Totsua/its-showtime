@@ -63,6 +63,13 @@
       <a href="/filmsNowShowing" class="btn btn-outline-primary btn-lg">Films Now Showing</a>
     </div>
   </div>
+<div th:if="${message}" >
+  <div class="alert alert-success" th:text="${message}"></div>
+</div>
+
+<div th:if="${error}">
+  <div class="alert alert-danger" th:text="${error}"></div>
+</div>
   <div class="row m-4 border border-dark">
     <div class="col text-center m-3">
       <table class="table table-striped">
@@ -84,6 +91,14 @@
           <td th:text="${cinema.cinemaPostcode}">Postcode</td>
           <td th:text="${cinema.cinemaDistance}">Distance</td>
           <td><a href="#" th:href="@{/cinemaShowTimes(cinemaId=${cinema.cinemaId})}">Showtimes</a></td>
+          <td sec:authorize="isAuthenticated()">
+            <form th:action="@{/saveCinema}" method="post" >
+              <input type="hidden" name="cinemaId" th:value="${cinema.cinemaId}" />
+              <button type="submit" class="btn btn-primary">
+                Save Cinema
+              </button>
+            </form>
+          </td>
         </tr>
         </tbody>
       </table>
