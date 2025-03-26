@@ -1,6 +1,7 @@
 package com.company.showtime.service.wrappers;
 
 import com.company.showtime.entities.Cinema;
+import com.company.showtime.exceptions.CustomException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +17,7 @@ public class CinemaWrapper {
      * @param method - The API method called to obtain the API data.
      * @return a list of Cinema Objects from the JSON response body.
      */
-    public static List<Cinema> cinemaWrapper(String jsonResponseBody, String method) {
+    public static List<Cinema> cinemaWrapper(String jsonResponseBody, String method) throws CustomException {
         // Instantiate List Object of cinemas
         List<Cinema> cinemas = new ArrayList<>();
 
@@ -64,7 +65,7 @@ public class CinemaWrapper {
             }
 
         }catch(JsonProcessingException e){
-            System.out.println(e.getMessage());
+            throw new CustomException("-_-Could Not Parse Cinema JSON Data: " + e.getMessage(),e);
         }
         // Return the Cinema list
         return cinemas;
